@@ -1,0 +1,28 @@
+{
+  "name": "server_dailydiet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js",
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest run --dir src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.3",
+    "vite-tsconfig-paths": "^4.0.7",
+    "vitest": "^0.29.8"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "fastify": "^4.15.0",
+    "zod": "^3.21.4"
+  }
+}
