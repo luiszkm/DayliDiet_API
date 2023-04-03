@@ -1,16 +1,18 @@
-import { UserImplementation } from 'src/modules/respository/implementations/userImplementations'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { EmailExiststError } from '../erros/EmaiExists.error'
-import { RegisterUserService } from './registerUser.service'
+import { compare } from 'bcryptjs'
+
+import { UserAlreadyExistsError } from '../erros/EmaiExists.error'
+import { UserImplementation } from 'src/modules/respository/implementations/userImplementations'
+import { RegisterUserUseCase } from './registerUser.service'
 
 
 
 let usersRepository:UserImplementation
-let sut:RegisterUserService
+let sut:RegisterUserUseCase
 describe('User model tests', () => {
   beforeEach(() => {
     usersRepository = new UserImplementation()
-    sut = new RegisterUserService(usersRepository)
+    sut = new RegisterUserUseCase(usersRepository)
   })
   it('shold be albe to create user', async () => {
     const {user} = await sut.execute({
@@ -18,29 +20,33 @@ describe('User model tests', () => {
       email: 'john@example.com',
       password: '123456',
     })
+    const isPasswordCorrectlyHashed = await compare(
+      '123456',
+      user.props.password,
+    )
+    expect(isPasswordCorrectlyHashed).toBe(true)
     expect(user.props).toEqual(
       expect.objectContaining({
         id: expect.any(String),
         name: 'John',
         email: 'john@example.com',
-        password: '123456',
         created_at: expect.any(Date),
-      
       })
     )
   })
-  it.only('shold be albe to not create user with same email', async () => {
-    await sut.execute({
+  it('shold be albe to not create user with same email', async () => {
+   await sut.execute({
       name: 'John',
       email: 'test@example.com',
       password: '123456',
     })
+    
    await expect(
       sut.execute({
         name: 'John',
-        email: 'test@example.coma',
+        email: 'test@example.com',
         password: '123456',
       })
-    ).rejects.toBeInstanceOf(EmailExiststError)
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })

@@ -1,10 +1,13 @@
 ### Regras da aplicação
 
-- [] Deve ser possível criar um usuário
-     - [] unico email por usuário
-     - [] senha criptografada
+- [X] Deve ser possível criar um usuário
+     - [X] unico email por usuário
+     - [X] senha criptografada
      - [x] id unico por usuário
 - [] Deve ser possível identificar o usuário entre as requisições
+      - [x] AUTENTICAR
+      - [] refresh token
+      - [] cookies
 - [] Deve ser possível registrar uma refeição feita, com as seguintes informações:
     
     *As refeições devem ser relacionadas a um usuário.*

@@ -1,6 +1,6 @@
+import { hash } from "bcryptjs";
 import { UserRepository } from "src/modules/respository/userRepository";
-import { EmailExiststError } from "../erros/EmaiExists.error";
-
+import { UserAlreadyExistsError } from "../erros/EmaiExists.error";
 interface ICreateUserRequest {
   name: string;
   email: string;
@@ -8,21 +8,21 @@ interface ICreateUserRequest {
 }
 
 
-export class RegisterUserService {
+export class RegisterUserUseCase {
   constructor(private userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
   async execute({ name, email, password }: ICreateUserRequest) {
     const emailExists = await this.userRepository.findByEmail(email)
-    console.log(emailExists?.props.email);
-    
-   if (emailExists === null || !emailExists) throw new EmailExiststError()
 
+    if (emailExists) throw new UserAlreadyExistsError()
+
+    const password_hash = await hash(password, 6)
 
     const user = await this.userRepository.createUser({
       name,
       email,
-      password,
+      password: password_hash,
     })
     return { user }
   }
