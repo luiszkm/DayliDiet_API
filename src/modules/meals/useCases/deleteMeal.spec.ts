@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
-import { UpdateMealsUseCase } from "./updateMeal.service";
-import { log } from "console";
 import { DeleteMealsUseCase } from "./deleteMeal.service";
+import { UserMock } from "../mocks/User";
 
 
 let mealsRepository: MealsImplementations
@@ -14,11 +13,14 @@ describe('Update Meals UseCase', () => {
     sut = new DeleteMealsUseCase(mealsRepository)
   })
   it('should be able delete a meal', async () => {
+    const user = new UserMock()
     const meal = await mealsRepository.create({
+      user_id: user.id,
       name: 'Meal',
       description: 'Meal Description',
     })
     const meal2 =  await mealsRepository.create({
+      user_id: user.id,
       name: 'Meal 2',
       description: 'Meal Description 2',
     })

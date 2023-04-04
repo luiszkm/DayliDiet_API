@@ -6,15 +6,15 @@ import { ICreateMealInput, IUpdateMealInput, MealsRepository } from "../mealsRep
 
 
 export class MealsImplementations implements MealsRepository {
-
   public items: MealModel[] = []
-
-
-
-
 
   async findById(id: string): Promise<MealModel | null> {
     const meal = await this.items.find(item => item.props.id === id);
+    if (!meal) return null;
+    return meal
+  }
+  async list(user_id: string): Promise<MealModel[] | null> {
+    const meal = await this.items.filter(item => item.props.user_id === user_id);
     if (!meal) return null;
     return meal
   }
@@ -38,11 +38,12 @@ export class MealsImplementations implements MealsRepository {
     return mealUpdated
 
   }
-  async create({ name, description }: ICreateMealInput): Promise<MealModel | null> {
+  async create({ name, description,user_id }: ICreateMealInput): Promise<MealModel | null> {
     try {
       const meal = new MealModel({
         name,
         description,
+        user_id
       })
       this.items.push(meal);
       return meal

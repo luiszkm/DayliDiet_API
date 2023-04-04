@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterMealsUseCase } from "./registerMeal.service";
 import { MealsRepository } from "../repository/mealsRepository";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
+import { UserMock } from "../mocks/User";
 
 
 let mealsRepository: MealsImplementations
@@ -13,9 +14,12 @@ describe('Register Meals UseCase', () => {
     sut = new RegisterMealsUseCase(mealsRepository)
   })
   it('should be able register a meal', async () => {
+    const user = new UserMock()
+
     const { meal } = await sut.exceute({
       name: 'Meal',
       description: 'Meal Description',
+      user_id: user.id
     })
 
     expect(meal?.props).toEqual(

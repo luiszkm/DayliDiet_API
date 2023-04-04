@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 
 export interface IMeal{
   id?: string;
-  user_id?: string;
+  user_id: string;
   name: string;
   description: string;
   created_at?: Date;
@@ -16,6 +16,7 @@ export class MealModel {
     this.props.name = props.name
     this.props.description = props.description
     this.props.isDiet = props.isDiet
+    this.props.user_id = props.user_id
     if(!this.props.id){
       this.props.isDiet = true
     }

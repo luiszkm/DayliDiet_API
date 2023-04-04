@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
 import { UpdateMealsUseCase } from "./updateMeal.service";
 import { log } from "console";
+import { UserMock } from "../mocks/User";
 
 
 let mealsRepository: MealsImplementations
@@ -13,9 +14,11 @@ describe('Update Meals UseCase', () => {
     sut = new UpdateMealsUseCase(mealsRepository)
   })
   it('should be able update a meal', async () => {
+    const user = new UserMock()
     const meal = await mealsRepository.create({
       name: 'Meal',
       description: 'Meal Description',
+      user_id: user.id
     })
     const { mealUpdated } = await sut.exceute({
       description: 'Meal Updated',

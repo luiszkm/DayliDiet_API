@@ -5,24 +5,17 @@ interface ICreateMealInput {
   description: string;
   isDiet: boolean;
   id: string;
-
 }
 
-export class UpdateMealsUseCase {
+export class ListMealsUseCase {
   constructor(private mealsRespository: MealsRepository) {
     this.mealsRespository = mealsRespository;
   }
 
-  async exceute({ name, description, id, isDiet }: ICreateMealInput) {
-    const mealUpdated = await this.mealsRespository.update({
-      name,
-      description,
-      id,
-      isDiet,
-    })
-    return {
-      mealUpdated
+  async exceute( user_id: string) {
+    const meals = await this.mealsRespository.list(user_id)
+    return{
+      meals
     }
   }
-
 }
