@@ -1,10 +1,5 @@
 import { randomUUID } from "crypto";
 
-interface IuserNock {
-  id: string;
-
-}
-
 
 export class UserMock {
   id: string

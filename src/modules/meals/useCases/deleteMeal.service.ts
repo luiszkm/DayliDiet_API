@@ -1,3 +1,4 @@
+import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
 import { MealsRepository } from "../repository/mealsRepository";
 
 interface ICreateMealInput {
@@ -13,6 +14,8 @@ export class DeleteMealsUseCase {
   }
 
   async exceute( id: string) {
+    const idValid = await this.mealsRespository.findById(id)
+    if(!idValid) throw new InvalidMealsCredentialsErro()
     const meals = await this.mealsRespository.delete(id)
     
     return{

@@ -2,11 +2,14 @@ import { log } from "console";
 import { MealModel } from "../../model/mealModel";
 import { ICreateMealInput, IUpdateMealInput, MealsRepository } from "../mealsRepository";
 
-
-
-
 export class MealsImplementations implements MealsRepository {
   public items: MealModel[] = []
+
+ async details(id: string): Promise<MealModel | null> {
+    const meal = await this.items.find(item => item.props.id === id);
+    if (!meal) return null;
+    return meal
+  }
 
   async findById(id: string): Promise<MealModel | null> {
     const meal = await this.items.find(item => item.props.id === id);

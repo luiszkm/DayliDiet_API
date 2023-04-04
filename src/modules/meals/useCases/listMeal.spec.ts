@@ -1,10 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
-
 import { ListMealsUseCase } from "./listMeal.service";
 import { UserMock } from "../mocks/User";
-import { log } from "console";
-
 
 let mealsRepository: MealsImplementations
 let sut: ListMealsUseCase

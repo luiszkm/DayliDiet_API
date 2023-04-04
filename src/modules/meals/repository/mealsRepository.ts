@@ -18,6 +18,7 @@ export abstract class MealsRepository {
   abstract findById(id: string): Promise<MealModel | null>
   abstract update({ id, description, isDiet = true, name }: IUpdateMealInput): Promise<IMeal | null>
   abstract delete(id: string): Promise<MealModel[] | null>
+  abstract details(id: string): Promise<MealModel | null>
   abstract list(user_id: string): Promise<MealModel[] | null>
   
 }

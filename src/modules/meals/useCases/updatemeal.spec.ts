@@ -3,6 +3,7 @@ import { MealsImplementations } from "../repository/implementation/mealsImplemen
 import { UpdateMealsUseCase } from "./updateMeal.service";
 import { log } from "console";
 import { UserMock } from "../mocks/User";
+import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
 
 
 let mealsRepository: MealsImplementations
@@ -38,5 +39,22 @@ describe('Update Meals UseCase', () => {
 
       })
     )
+  })
+  it('should not be able update a meal with invalid id', async () => {
+    const user = new UserMock()
+    const meal = await mealsRepository.create({
+      name: 'Meal',
+      description: 'Meal Description',
+      user_id: user.id
+    })
+
+   await expect(
+      sut.exceute({
+        description: 'Meal Updated',
+        name: 'Meal Updated ',
+        id: '12221',// id invalid
+        isDiet: false,
+      })
+    ).rejects.toBeInstanceOf(InvalidMealsCredentialsErro)
   })
 })
