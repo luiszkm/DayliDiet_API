@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { compare } from 'bcryptjs'
 
-import { UserAlreadyExistsError } from '../erros/EmaiExists.error'
-import { UserImplementation } from 'src/modules/respository/implementations/userImplementations'
 import { RegisterUserUseCase } from './registerUser.service'
-
+import { UserImplementation } from '../respository/implementations/userImplementations'
+import { UserAlreadyExistsError } from '../errors/EmaiExists.error'
 
 
 let usersRepository:UserImplementation

@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
-import { UserRepository } from "src/modules/respository/userRepository";
-import { UserAlreadyExistsError } from "../erros/EmaiExists.error";
+import { UserRepository } from "../respository/userRepository";
+import { UserAlreadyExistsError } from "../errors/EmaiExists.error";
 interface ICreateUserRequest {
   name: string;
   email: string;

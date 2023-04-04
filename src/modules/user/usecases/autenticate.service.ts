@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
-import { UserRepository } from "src/modules/respository/userRepository";
-import { InvalidCredentialsErro } from "../erros/invalid-credentials-error";
+import { UserRepository } from "../respository/userRepository";
+import { InvalidCredentialsErro } from "../errors/invalid-credentials-error";
 
 interface IAuthenticateRequest{
   email: string;

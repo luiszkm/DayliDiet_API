@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { compare, hash } from 'bcryptjs'
 
-import { UserImplementation } from 'src/modules/respository/implementations/userImplementations'
 import { AuthenticateUseCase } from './autenticate.service'
-import { InvalidCredentialsErro } from '../erros/invalid-credentials-error'
+import { UserImplementation } from '../respository/implementations/userImplementations'
+import { InvalidCredentialsErro } from '../errors/invalid-credentials-error'
 
 
 
