@@ -6,11 +6,12 @@ export interface ICreateMealInput {
   isDiet?: boolean;
 }
 export interface IUpdateMealInput extends ICreateMealInput {
-  id : string;
+  id: string;
 }
 
 export abstract class MealsRepository {
   abstract create({ name, description }: ICreateMealInput): Promise<MealModel | null>
   abstract findById(id: string): Promise<MealModel | null>
-  abstract update({id, description, isDiet = true, name }: IUpdateMealInput): Promise<IMeal | null>
+  abstract update({ id, description, isDiet = true, name }: IUpdateMealInput): Promise<IMeal | null>
+  abstract delete(id: string): Promise<MealModel[] | null>
 }

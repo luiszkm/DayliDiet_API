@@ -9,15 +9,25 @@ export class MealsImplementations implements MealsRepository {
 
   public items: MealModel[] = []
 
+
+
+
+
   async findById(id: string): Promise<MealModel | null> {
     const meal = await this.items.find(item => item.props.id === id);
     if (!meal) return null;
     return meal
   }
-  async update({ id, description, isDiet, name }: IUpdateMealInput){
-    const meal = await this.findById(id)
+
+  async delete(id: string): Promise<MealModel[] | null> {
+    const meal = await this.items.filter(item => item.props.id !== id);
     if (!meal) return null;
-    
+    return meal
+  }
+  async update({ id, description, isDiet, name }: IUpdateMealInput) {
+    const meal = await this.items.find(item => item.props.id === id);
+    if (!meal) return null;
+
     const mealUpdated = await Object.assign(meal.props,
       {
         description,
