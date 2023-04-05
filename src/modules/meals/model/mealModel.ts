@@ -7,7 +7,7 @@ export interface IMeal{
   description: string;
   created_at?: Date;
   updated_at?: Date | null;
-  isDiet?: boolean;
+  isDiet: boolean;
 }
 
 
@@ -15,11 +15,8 @@ export class MealModel {
   constructor(public props: IMeal){
     this.props.name = props.name
     this.props.description = props.description
-    this.props.isDiet = props.isDiet
     this.props.user_id = props.user_id
-    if(!this.props.id){
-      this.props.isDiet = true
-    }
+    this.props.isDiet = props.isDiet
     if(!this.props.id){
       this.props.id = randomUUID()
     }

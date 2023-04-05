@@ -19,7 +19,8 @@ describe('Register Meals UseCase', () => {
     const { meal } = await sut.exceute({
       name: 'Meal',
       description: 'Meal Description',
-      user_id: user.id
+      user_id: user.id,
+      isDiet: true
     })
 
     expect(meal?.props).toEqual(

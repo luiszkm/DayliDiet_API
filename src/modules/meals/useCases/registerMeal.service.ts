@@ -5,6 +5,7 @@ interface ICreateMealInput {
   name: string;
   description: string;
   user_id: string
+  isDiet: boolean
 }
 
 export class RegisterMealsUseCase {
@@ -12,11 +13,12 @@ export class RegisterMealsUseCase {
     this.mealsRespository = mealsRespository;
   }
 
-  async exceute({ name, description, user_id }: ICreateMealInput) {
+  async exceute({ name, description, user_id, isDiet }: ICreateMealInput) {
     const meal = await this.mealsRespository.create({
       name,
       description,
-      user_id
+      user_id,
+      isDiet
     })
 
     return { meal }

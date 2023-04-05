@@ -1,4 +1,3 @@
-import { log } from "console";
 import { MealModel } from "../../model/mealModel";
 import { ICreateMealInput, IUpdateMealInput, MealsRepository } from "../mealsRepository";
 
@@ -41,12 +40,14 @@ export class MealsImplementations implements MealsRepository {
     return mealUpdated
 
   }
-  async create({ name, description,user_id }: ICreateMealInput): Promise<MealModel | null> {
+  async create({ name, description,user_id,isDiet, created_at }: ICreateMealInput): Promise<MealModel | null> {
     try {
       const meal = new MealModel({
         name,
         description,
-        user_id
+        user_id,
+        isDiet,
+        created_at
       })
       this.items.push(meal);
       return meal

@@ -19,7 +19,8 @@ describe('Update Meals UseCase', () => {
     const meal = await mealsRepository.create({
       name: 'Meal',
       description: 'Meal Description',
-      user_id: user.id
+      user_id: user.id,
+      isDiet: true,
     })
     const { mealUpdated } = await sut.exceute({
       description: 'Meal Updated',
@@ -45,7 +46,8 @@ describe('Update Meals UseCase', () => {
     const meal = await mealsRepository.create({
       name: 'Meal',
       description: 'Meal Description',
-      user_id: user.id
+      user_id: user.id,
+      isDiet: false,
     })
 
    await expect(

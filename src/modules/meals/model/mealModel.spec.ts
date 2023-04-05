@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { MealModel } from './mealModel'
+import { randomUUID } from 'crypto'
 
 describe('User model tests', () => {
 
@@ -23,10 +24,12 @@ describe('User model tests', () => {
       })
     )
   })
-  it('shold be albe usr model test with mandatory data', () => {
+  it('shold be albe usr model test with mandatory data', async () => {
     const user = new MealModel({
       name: 'breakfast',
       description: 'description',
+      user_id: '123',
+      isDiet: true
     })
     expect(user.props).toEqual(
       expect.objectContaining({
