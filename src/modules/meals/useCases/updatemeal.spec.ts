@@ -27,6 +27,7 @@ describe('Update Meals UseCase', () => {
       name: 'Meal Updated ',
       id: meal?.props.id || '',
       isDiet: false,
+      user_id: user.id
     })
 
     expect(mealUpdated).toEqual(
@@ -56,6 +57,7 @@ describe('Update Meals UseCase', () => {
         name: 'Meal Updated ',
         id: '12221',// id invalid
         isDiet: false,
+        user_id: user.id
       })
     ).rejects.toBeInstanceOf(InvalidMealsCredentialsErro)
   })

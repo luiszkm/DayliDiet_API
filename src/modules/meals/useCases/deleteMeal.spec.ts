@@ -4,7 +4,6 @@ import { DeleteMealsUseCase } from "./deleteMeal.service";
 import { UserMock } from "../mocks/User";
 import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
 
-
 let mealsRepository: MealsImplementations
 let sut: DeleteMealsUseCase
 
@@ -19,14 +18,16 @@ describe('Update Meals UseCase', () => {
       user_id: user.id,
       name: 'Meal',
       description: 'Meal Description',
+      isDiet: false
     })
-     await mealsRepository.create({
+    await mealsRepository.create({
       user_id: user.id,
       name: 'Meal 2',
       description: 'Meal Description 2',
+      isDiet: true
     })
-   const {meals}=  await sut.exceute(meal?.props.id || '')
-     expect(meals).toHaveLength(1)
+    const { meals } = await sut.exceute({ id: meal?.props.id || '', user_id: user.id })
+    expect(meals).toHaveLength(1)
   })
   it('should not be able delete a meal with id invalid', async () => {
     const user = new UserMock()
@@ -34,16 +35,18 @@ describe('Update Meals UseCase', () => {
       user_id: user.id,
       name: 'Meal',
       description: 'Meal Description',
+      isDiet: false
+
     })
     await mealsRepository.create({
       user_id: user.id,
       name: 'Meal 2',
       description: 'Meal Description',
+      isDiet: true
     })
-   
     await expect(
-      sut.exceute('1234')
-     ).rejects.toBeInstanceOf(InvalidMealsCredentialsErro)
-      
+      sut.exceute({id:'222', user_id: user.id})
+    ).rejects.toBeInstanceOf(InvalidMealsCredentialsErro)
+
   })
 })

@@ -19,14 +19,16 @@ describe('Details Meals UseCase', () => {
       user_id: user.id,
       name: 'Meal',
       description: 'Meal Description',
+      isDiet: false,
     })
     await mealsRepository.create({
       user_id: user.id,
       name: 'Meal 2',
       description: 'Meal Description 2',
+      isDiet: true
     })
 
-    const { meals } = await sut.exceute(meal?.props.id || '')
+    const { meals } = await sut.exceute({id:meal?.props.id || '', user_id: user.id})
     expect(meals).toEqual(
       expect.objectContaining({
         id: meal?.props.id,
@@ -41,9 +43,10 @@ describe('Details Meals UseCase', () => {
       user_id: user.id,
       name: 'Meal',
       description: 'Meal Description',
+      isDiet:true,
     })
     await expect(
-      sut.exceute('2134')
+      sut.exceute({id: '122', user_id: user.id})
     ).rejects.toBeInstanceOf(InvalidMealsCredentialsErro)
   })
 })

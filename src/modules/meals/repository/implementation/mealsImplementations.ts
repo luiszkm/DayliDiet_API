@@ -1,11 +1,12 @@
 import { MealModel } from "../../model/mealModel";
-import { ICreateMealInput, IUpdateMealInput, MealsRepository } from "../mealsRepository";
+import { ICreateMealInput, IUserMealInput, IUpdateMealInput, MealsRepository } from "../mealsRepository";
 
 export class MealsImplementations implements MealsRepository {
   public items: MealModel[] = []
 
- async details(id: string): Promise<MealModel | null> {
-    const meal = await this.items.find(item => item.props.id === id);
+ async details({id,user_id}:IUserMealInput): Promise<MealModel | null> {
+  const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
+    const meal = await mealsUser.find(item => item.props.id === id);
     if (!meal) return null;
     return meal
   }
@@ -21,13 +22,15 @@ export class MealsImplementations implements MealsRepository {
     return meal
   }
 
-  async delete(id: string): Promise<MealModel[] | null> {
-    const meal = await this.items.filter(item => item.props.id !== id);
+  async delete({id,user_id}:IUserMealInput): Promise<MealModel[] | null> {
+    const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
+    const meal = await mealsUser.filter(item => item.props.id !== id);
     if (!meal) return null;
     return meal
   }
-  async update({ id, description, isDiet, name }: IUpdateMealInput) {
-    const meal = await this.items.find(item => item.props.id === id);
+  async update({ id, description, isDiet, name, user_id }: IUpdateMealInput) {
+    const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
+    const meal = await mealsUser.find(item => item.props.id === id);
     if (!meal) return null;
 
     const mealUpdated = await Object.assign(meal.props,

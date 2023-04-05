@@ -6,6 +6,7 @@ interface ICreateMealInput {
   description: string;
   isDiet: boolean;
   id: string;
+  user_id: string
 
 }
 
@@ -14,7 +15,7 @@ export class UpdateMealsUseCase {
     this.mealsRespository = mealsRespository;
   }
 
-  async exceute({ name, description, id, isDiet }: ICreateMealInput) {
+  async exceute({ name, description, id, isDiet, user_id }: ICreateMealInput) {
     const idValid = await this.mealsRespository.findById(id)
     if (!idValid) throw new InvalidMealsCredentialsErro()
     
@@ -23,6 +24,7 @@ export class UpdateMealsUseCase {
       description,
       id,
       isDiet,
+      user_id
     })
     return {
       mealUpdated
