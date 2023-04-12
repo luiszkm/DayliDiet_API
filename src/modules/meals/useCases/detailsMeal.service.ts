@@ -16,7 +16,7 @@ export class DetailsMealsUseCase {
     const meals = await this.mealsRespository.details({id,user_id})
     
     return{
-      meals: meals?.props
+      meals: meals
     }
   }
 }

@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterMealsUseCase } from "./registerMeal.service";
-import { MealsRepository } from "../repository/mealsRepository";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
 import { UserMock } from "../mocks/User";
 
@@ -23,7 +22,7 @@ describe('Register Meals UseCase', () => {
       isDiet: true
     })
 
-    expect(meal?.props).toEqual(
+    expect(meal).toEqual(
       expect.objectContaining({
         id: expect.any(String),
         name: 'Meal',

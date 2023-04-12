@@ -5,35 +5,35 @@ export class MealsImplementations implements MealsRepository {
   public items: MealModel[] = []
 
  async details({id,user_id}:IUserMealInput): Promise<MealModel | null> {
-  const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
-    const meal = await mealsUser.find(item => item.props.id === id);
+  const mealsUser = await this.items.filter(item => item.user_id === user_id);
+    const meal = await mealsUser.find(item => item.id === id);
     if (!meal) return null;
     return meal
   }
 
   async findById(id: string): Promise<MealModel | null> {
-    const meal = await this.items.find(item => item.props.id === id);
+    const meal = await this.items.find(item => item.id === id);
     if (!meal) return null;
     return meal
   }
   async list(user_id: string): Promise<MealModel[] | null> {
-    const meal = await this.items.filter(item => item.props.user_id === user_id);
+    const meal = await this.items.filter(item => item.user_id === user_id);
     if (!meal) return null;
     return meal
   }
 
   async delete({id,user_id}:IUserMealInput): Promise<MealModel[] | null> {
-    const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
-    const meal = await mealsUser.filter(item => item.props.id !== id);
+    const mealsUser = await this.items.filter(item => item.user_id === user_id);
+    const meal = await mealsUser.filter(item => item.id !== id);
     if (!meal) return null;
     return meal
   }
   async update({ id, description, isDiet, name, user_id }: IUpdateMealInput) {
-    const mealsUser = await this.items.filter(item => item.props.user_id === user_id);
-    const meal = await mealsUser.find(item => item.props.id === id);
+    const mealsUser = await this.items.filter(item => item.user_id === user_id);
+    const meal = await mealsUser.find(item => item.id === id);
     if (!meal) return null;
 
-    const mealUpdated = await Object.assign(meal.props,
+    const mealUpdated = await Object.assign(meal,
       {
         description,
         isDiet,

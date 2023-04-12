@@ -25,7 +25,7 @@ export abstract class MealsRepository {
   abstract create({ name, description, isDiet, user_id, id }: ICreateMealInput): Promise<MealModel | null>
   abstract findById(id: string): Promise<MealModel | null>
   abstract update({ id, description, isDiet, name }: IUpdateMealInput): Promise<IMeal | null>
-  abstract delete({id, user_id}:IUserMealInput): Promise<MealModel[] | null>
+  abstract delete({id, user_id}:IUserMealInput): Promise<MealModel[] | null | MealModel>
   abstract details({id, user_id}:IUserMealInput): Promise<MealModel | null>
   abstract list(user_id: string): Promise<MealModel[] | null>
 

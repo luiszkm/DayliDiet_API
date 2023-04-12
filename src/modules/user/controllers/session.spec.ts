@@ -25,6 +25,9 @@ describe('Session Controller (e2e)', () => {
         password: '123456'
       })
     expect(response.statusCode).toEqual(200)
+    expect(response.body).toEqual({
+      token: expect.any(String)
+    })
   })
   it('should be able to create a session with password wrong', async () => {
 

@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
 import { UpdateMealsUseCase } from "./updateMeal.service";
-import { log } from "console";
 import { UserMock } from "../mocks/User";
 import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
 
@@ -25,7 +24,7 @@ describe('Update Meals UseCase', () => {
     const { mealUpdated } = await sut.exceute({
       description: 'Meal Updated',
       name: 'Meal Updated ',
-      id: meal?.props.id || '',
+      id: meal?.id || '',
       isDiet: false,
       user_id: user.id
     })

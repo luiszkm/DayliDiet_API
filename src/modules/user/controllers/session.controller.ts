@@ -12,13 +12,37 @@ export async function SessionController(request: FastifyRequest, reply: FastifyR
   })
   const { email, password } = registerBodySchema.parse(request.body)
   try {
-     const registerService = makeSessionService()
+    const registerService = makeSessionService()
 
-    await registerService.execute({ email, password })
+    const { user } = await registerService.execute({ email, password })
+    const token = await reply.jwtSign(
+      {}, {
+      sign: {
+        sub: user.id
+      }
+    })
+    const refreshToken = await reply.jwtSign(
+      {}, {
+      sign: {
+        sub: user.id,
+        expiresIn: '7d',
+      }
+    })
 
-    return reply.status(200).send()
+    return reply
+    .setCookie('refreshToken', refreshToken, {
+      path: '/',
+      secure: true,
+      sameSite: true,
+      httpOnly: true,
+    })
+    .status(200)
+    .send({
+      token
+    })
+
   } catch (error) {
-    if (error instanceof InvalidCredentialsErro ) reply.status(400).send({ message: error.message })
+    if (error instanceof InvalidCredentialsErro) reply.status(400).send({ message: error.message })
     throw error
   }
 }

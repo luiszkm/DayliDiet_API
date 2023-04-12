@@ -28,10 +28,10 @@ describe('Details Meals UseCase', () => {
       isDiet: true
     })
 
-    const { meals } = await sut.exceute({id:meal?.props.id || '', user_id: user.id})
+    const { meals } = await sut.exceute({id:meal?.id || '', user_id: user.id})
     expect(meals).toEqual(
       expect.objectContaining({
-        id: meal?.props.id,
+        id: meal?.id,
         name: 'Meal',
         description: 'Meal Description',
       })

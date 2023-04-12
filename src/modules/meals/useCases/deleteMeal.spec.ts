@@ -26,7 +26,7 @@ describe('Update Meals UseCase', () => {
       description: 'Meal Description 2',
       isDiet: true
     })
-    const { meals } = await sut.exceute({ id: meal?.props.id || '', user_id: user.id })
+    const { meals } = await sut.exceute({ id: meal?.id || '', user_id: user.id })
     expect(meals).toHaveLength(1)
   })
   it('should not be able delete a meal with id invalid', async () => {
