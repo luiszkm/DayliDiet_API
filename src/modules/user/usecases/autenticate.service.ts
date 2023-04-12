@@ -15,7 +15,7 @@ export class AuthenticateUseCase {
  async execute({email, password}:IAuthenticateRequest){
     const user = await this.usersRepository.findByEmail(email)
     if(!user) throw new InvalidCredentialsErro()
-    const doesPasswordMatches = await compare(password, user.props.password)
+    const doesPasswordMatches = await compare(password, user.password)
     if(!doesPasswordMatches) throw new InvalidCredentialsErro()
     return{
       user

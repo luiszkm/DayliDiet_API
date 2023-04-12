@@ -7,6 +7,6 @@ export interface IUserInput {
 }
 
 export abstract class UserRepository {
-  abstract createUser(data: IUserInput | Prisma.UserCreateInput): Promise<UserModel | User>
-  abstract findByEmail(email: string): Promise<UserModel | null | User>
+  abstract createUser(data: IUserInput): Promise<UserModel>
+  abstract findByEmail(email: string): Promise<UserModel | null>
 }

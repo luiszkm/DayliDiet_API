@@ -21,7 +21,6 @@ export class RegisterUserUseCase {
       name,
       email,
       password: password_hash,
-      sequencilyDaysSuccess: 0
     })
     return { user }
   }

@@ -21,10 +21,10 @@ describe('User model tests', () => {
     })
     const isPasswordCorrectlyHashed = await compare(
       '123456',
-      user.props.password,
+      user.password,
     )
     expect(isPasswordCorrectlyHashed).toBe(true)
-    expect(user.props).toEqual(
+    expect(user).toEqual(
       expect.objectContaining({
         id: expect.any(String),
         name: 'John',

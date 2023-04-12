@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeRegisterService } from '../factories/make-register.service'
+import { makeSessionService } from '../factories/make-session.service'
+import { InvalidCredentialsErro } from '../errors/invalid-credentials-error'
 
 
 
@@ -11,12 +12,13 @@ export async function SessionController(request: FastifyRequest, reply: FastifyR
   })
   const { email, password } = registerBodySchema.parse(request.body)
   try {
-    // const registerService = makeRegisterService()
+     const registerService = makeSessionService()
 
-    // await registerService.execute({ email, password })
+    await registerService.execute({ email, password })
 
-    return reply.status(201).send()
+    return reply.status(200).send()
   } catch (error) {
+    if (error instanceof InvalidCredentialsErro ) reply.status(400).send({ message: error.message })
     throw error
   }
 }

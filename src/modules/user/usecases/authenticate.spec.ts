@@ -54,6 +54,6 @@ describe('Authenticate UseCase ', () => {
       password: '123456'
     })
     
-    expect(user.props.id).toEqual(expect.any(String))
+    expect(user.id).toEqual(expect.any(String))
   })
 })

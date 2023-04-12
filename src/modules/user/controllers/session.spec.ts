@@ -10,12 +10,37 @@ describe('Session Controller (e2e)', () => {
   })
 
   it('should be able to create a session', async () => {
+
+    await request(app.server)
+      .post('/users')
+      .send({
+        name: 'session test',
+        email: 'test.session@example.com',
+        password: '123456'
+      })
     const response = await request(app.server)
       .post('/sessions')
       .send({
-        email: 'test@example.com',
+        email: 'test.session@example.com',
         password: '123456'
       })
-    expect(response.statusCode).toEqual(201)
+    expect(response.statusCode).toEqual(200)
+  })
+  it('should be able to create a session with password wrong', async () => {
+
+    await request(app.server)
+      .post('/users')
+      .send({
+        name: 'session test',
+        email: 'test.session@example.com',
+        password: '123456'
+      })
+    const response = await request(app.server)
+      .post('/sessions')
+      .send({
+        email: 'test.session@example.com',
+        password: '12345678'
+      })
+    expect(response.statusCode).toEqual(400)
   })
 })

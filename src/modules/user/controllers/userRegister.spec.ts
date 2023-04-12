@@ -19,4 +19,14 @@ describe('Register Controller (e2e)', () => {
       })
     expect(response.statusCode).toEqual(201)
   })
+  it('should be able to registe with same email', async () => {
+    const response = await request(app.server)
+      .post('/users')
+      .send({
+        name: 'register test',
+        email: 'test@example.com',
+        password: '123456'
+      })
+    expect(response.statusCode).toEqual(409)
+  })
 })
