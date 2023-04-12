@@ -32,7 +32,7 @@ describe('Authenticate UseCase ', () => {
     const user = await usersRepository.createUser({
       name: 'John',
       email: 'test@example.com',
-      password: await hash('123456', 6),
+      password: await hash('123456', 6)
     })
 
     await expect(
@@ -46,14 +46,14 @@ describe('Authenticate UseCase ', () => {
     await usersRepository.createUser({
       name: 'John',
       email: 'test@example.com',
-      password: await hash('123456', 6),
+      password: await hash('123456', 6)
     })
 
-    const {user} = await sut.execute({
-        email: 'test@example.com',
-        password: '123456'
-      })
-
-      expect(user.props.id).toEqual(expect.any(String))
+    const { user } = await sut.execute({
+      email: 'test@example.com',
+      password: '123456'
+    })
+    
+    expect(user.props.id).toEqual(expect.any(String))
   })
 })

@@ -1,5 +1,5 @@
-import { UserModel } from "../user/model/user.model";
-
+import { UserModel } from "../model/user.model";
+import { Prisma, User } from '@prisma/client'
 export interface IUserInput {
   name: string;
   email: string;
@@ -7,6 +7,6 @@ export interface IUserInput {
 }
 
 export abstract class UserRepository {
- abstract createUser(datas: IUserInput): Promise<UserModel>
- abstract findByEmail(email: string): Promise<UserModel | null>
+  abstract createUser(data: IUserInput | Prisma.UserCreateInput): Promise<UserModel | User>
+  abstract findByEmail(email: string): Promise<UserModel | null | User>
 }

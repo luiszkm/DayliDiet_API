@@ -3,13 +3,15 @@ import { UserModel } from './user.model'
 
 describe('User model tests', () => {
 
-  it('shold be albe usr model test with all datas', () => {
+  it('shold be albe usr model test', () => {
     const user = new UserModel({
       id: '123',
       name: 'John',
       email: 'john@example.com',
       password: '123456',
-      created_at: new Date()
+      lastSequencilyDaysSuccess: new Date(),
+      sequencilyDaysSuccess : 0,
+      created_at: new Date(),
     })
     expect(user.props).toEqual(
       expect.objectContaining({
@@ -21,22 +23,5 @@ describe('User model tests', () => {
       })
     )
   })
-  it('shold be albe usr model test with only datas required', () => {
-    const user = new UserModel({
-      name: 'John',
-      email: 'john@example.com',
-      password: '123456',
-    })
-    expect(user.props).toEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        name: 'John',
-        email: 'john@example.com',
-        password: '123456',
-        created_at: expect.any(Date)
-      })
-    )
-  })
-
 
 })

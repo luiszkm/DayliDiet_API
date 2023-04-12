@@ -9,9 +9,7 @@ interface ICreateUserRequest {
 
 
 export class RegisterUserUseCase {
-  constructor(private userRepository: UserRepository) {
-    this.userRepository = userRepository;
-  }
+  constructor(private userRepository: UserRepository) { }
   async execute({ name, email, password }: ICreateUserRequest) {
     const emailExists = await this.userRepository.findByEmail(email)
 
@@ -23,6 +21,7 @@ export class RegisterUserUseCase {
       name,
       email,
       password: password_hash,
+      sequencilyDaysSuccess: 0
     })
     return { user }
   }

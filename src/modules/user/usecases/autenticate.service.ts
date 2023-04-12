@@ -17,7 +17,6 @@ export class AuthenticateUseCase {
     if(!user) throw new InvalidCredentialsErro()
     const doesPasswordMatches = await compare(password, user.props.password)
     if(!doesPasswordMatches) throw new InvalidCredentialsErro()
-
     return{
       user
     }

@@ -19,14 +19,6 @@ export class MetricsMealsUseCase {
     const melasIsDiet = meals.filter(item => item.props.isDiet === true)
     const melasIsNotDiet = meals.filter(item => item.props.isDiet === false)
 
-    // function diffDate(startDate: Date, endDate: Date): number {
-    //   var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-    //   var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    //   if (startDate > endDate) return 0
-
-    //   return diffDays
-    // }
-    // sequencilyDaysSuccess =diffDate(lastSequencilyDaysSuccess, new Date(`2023-03-11`)) 
 
     let sequencilyDay = []
 

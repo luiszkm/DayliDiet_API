@@ -1,13 +1,15 @@
 import { UserModel } from "src/modules/user/model/user.model";
 import { IUserInput, UserRepository } from "../userRepository";
+import { User } from "@prisma/client";
 
 
 export class UserImplementation implements UserRepository {
 
   public items: UserModel[] = []
 
-  async createUser(datas: IUserInput): Promise<UserModel> {
-    const user = new UserModel(datas)
+  async createUser(data: IUserInput): Promise<UserModel | User> {
+    
+    const user = new UserModel(data)
     this.items.push(user);
     return user
   }
