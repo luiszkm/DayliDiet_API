@@ -40,13 +40,13 @@ describe('List Meals UseCase', () => {
       created_at: new Date(`2023-03-02`)
     })// resturn count
 
-    const { sequencilyDay } = await sut.exceute({
+    const { metrics } = await sut.exceute({
       user_id:user.id,
       lastSequencilyDaysSuccess: user.lastSequencilyDaysSuccess,
-      sequencilyDaysSuccess: user.sequencilyDaysSuccess,
     })
+  
    
-  expect(sequencilyDay).toEqual(1)
+  expect(metrics.sequencilyDay).toEqual(1)
 })
   it('should be able list a meal of the user', async () => {
     const user = new UserMock()
@@ -77,13 +77,12 @@ describe('List Meals UseCase', () => {
       created_at: new Date(`2023-03-12`)
     })
 
-    const { sequencilyDay } = await sut.exceute({
+    const { metrics } = await sut.exceute({
       user_id:user.id,
       lastSequencilyDaysSuccess: user.lastSequencilyDaysSuccess,
-      sequencilyDaysSuccess: user.sequencilyDaysSuccess,
     })
    
-  expect(sequencilyDay).toEqual(1)
+  expect(metrics.sequencilyDay).toEqual(1)
 })
 it('should be able list a meal diet success of the user ', async () => {
   const user = new UserMock()
@@ -112,16 +111,15 @@ it('should be able list a meal diet success of the user ', async () => {
       isDiet: true
     })
   }
-  const { meals, melasIsDiet, melasIsNotDiet,sequencilyDay } = await sut.exceute({
+  const { metrics} = await sut.exceute({
     user_id:user.id,
     lastSequencilyDaysSuccess: user.lastSequencilyDaysSuccess,
-    sequencilyDaysSuccess: user.sequencilyDaysSuccess,
   })
 
-  expect(meals).toHaveLength(3)
-  expect(melasIsDiet).toHaveLength(1)
-  expect(melasIsNotDiet).toHaveLength(2)
-  expect(sequencilyDay).toEqual(1)
+  expect(metrics.userMeals).toEqual(3)
+  expect(metrics.onDietMeals).toHaveLength(1)
+  expect(metrics.offDietMeals).toHaveLength(2)
+  expect(metrics.sequencilyDay).toEqual(1)
 })
 })
 

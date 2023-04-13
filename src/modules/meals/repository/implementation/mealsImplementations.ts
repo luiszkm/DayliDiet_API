@@ -1,11 +1,40 @@
 import { MealModel } from "../../model/mealModel";
-import { ICreateMealInput, IUserMealInput, IUpdateMealInput, MealsRepository } from "../mealsRepository";
+import { ICreateMealInput, IUserMealInput, IUpdateMealInput, MealsRepository, IUserMetricsInput } from "../mealsRepository";
 
 export class MealsImplementations implements MealsRepository {
   public items: MealModel[] = []
 
- async details({id,user_id}:IUserMealInput): Promise<MealModel | null> {
-  const mealsUser = await this.items.filter(item => item.user_id === user_id);
+  async metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput) {
+    const userMeals = await this.items.filter(item => item.user_id === user_id)
+    if (!userMeals) return null;
+    const onDietMeals = userMeals.filter(item => item.isDiet === true)
+    const offDietMeals = userMeals.filter(item => item.isDiet === false)
+
+    let sequencilyDay = []
+
+    userMeals.filter(item => {
+      const created_at = item.created_at
+      if (created_at === undefined || created_at === null) return
+      return created_at > lastSequencilyDaysSuccess
+    }).filter(item => {
+      const sequenci = item.isDiet === true
+      sequencilyDay.push(item)
+      if (!sequenci) return sequencilyDay = []
+      return sequenci
+    })
+
+    const metrics = {
+      userMeals: userMeals.length,
+      onDietMeals: onDietMeals,
+      offDietMeals: offDietMeals,
+      sequencilyDay: sequencilyDay.length
+    }
+
+    return metrics
+  }
+
+  async details({ id, user_id }: IUserMealInput): Promise<MealModel | null> {
+    const mealsUser = await this.items.filter(item => item.user_id === user_id);
     const meal = await mealsUser.find(item => item.id === id);
     if (!meal) return null;
     return meal
@@ -22,7 +51,7 @@ export class MealsImplementations implements MealsRepository {
     return meal
   }
 
-  async delete({id,user_id}:IUserMealInput): Promise<MealModel[] | null> {
+  async delete({ id, user_id }: IUserMealInput): Promise<MealModel[] | null> {
     const mealsUser = await this.items.filter(item => item.user_id === user_id);
     const meal = await mealsUser.filter(item => item.id !== id);
     if (!meal) return null;
@@ -43,7 +72,7 @@ export class MealsImplementations implements MealsRepository {
     return mealUpdated
 
   }
-  async create({ name, description,user_id,isDiet, created_at }: ICreateMealInput): Promise<MealModel | null> {
+  async create({ name, description, user_id, isDiet, created_at }: ICreateMealInput): Promise<MealModel | null> {
     try {
       const meal = new MealModel({
         name,

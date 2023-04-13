@@ -5,6 +5,7 @@ import { UpdateMealsContrtoller } from "./controllers/updateMeals.controller";
 import { DeleteMealsContrtoller } from "./controllers/deleteMeals.controller";
 import { DetailsMealsContrtoller } from "./controllers/detailsMeals.controller";
 import { ListAllMealsContrtoller } from "./controllers/listAllMeals.controller";
+import { MetricsMealsContrtoller } from "./controllers/MetricsMeals.controller";
 
 
 
@@ -16,5 +17,6 @@ export async function MealsRoutes(app: FastifyInstance) {
   app.delete('/meals/:id', DeleteMealsContrtoller)
   app.get('/meals/:id', DetailsMealsContrtoller)
   app.get('/meals', ListAllMealsContrtoller)
+  app.get('/metrics', MetricsMealsContrtoller)
 
 }
