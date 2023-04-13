@@ -1,8 +1,11 @@
 import { MealModel, IMeal } from "@/modules/meals/model/mealModel";
-import { ICreateMealInput, IUpdateMealInput, IUserMealInput, MealsRepository } from "../../mealsRepository";
+import { ICreateMealInput, IUpdateMealInput, IUserMealInput, IUserMetricsInput, MealsRepository } from "../../mealsRepository";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaMealsImplementations implements MealsRepository {
+  metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput) {
+    throw new Error("Method not implemented.");
+  }
   async create({ name, description, isDiet, user_id }: ICreateMealInput): Promise<MealModel | null> {
     const meals = await prisma.meals.create({
       data: {

@@ -7,16 +7,14 @@ interface IUserMealInput {
 }
 
 export class DeleteMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {
-    this.mealsRespository = mealsRespository;
-  }
+  constructor(private mealsRespository: MealsRepository) { }
 
-  async exceute( {id,user_id}:IUserMealInput) {
+  async exceute({ id, user_id }: IUserMealInput) {
     const idValid = await this.mealsRespository.findById(id)
-    if(!idValid) throw new InvalidMealsCredentialsErro()
-    const meals = await this.mealsRespository.delete({id, user_id})
-    
-    return{
+    if (!idValid) throw new InvalidMealsCredentialsErro()
+    const meals = await this.mealsRespository.delete({ id, user_id })
+
+    return {
       meals
     }
   }

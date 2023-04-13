@@ -25,6 +25,14 @@ export interface IUserMetricsInput {
   lastSequencilyDaysSuccess: Date;
 }
 
+interface IReplyMetrics {
+  userMeals: number;
+  onDietMeals: MealModel[];
+  offDietMeals: MealModel[];
+  sequencilyDay: number;
+}
+
+
 export abstract class MealsRepository {
   abstract create({ name, description, isDiet, user_id, id }: ICreateMealInput): Promise<MealModel | null>
   abstract findById(id: string): Promise<MealModel | null>
@@ -32,5 +40,5 @@ export abstract class MealsRepository {
   abstract delete({ id, user_id }: IUserMealInput): Promise<MealModel[] | null | MealModel>
   abstract details({ id, user_id }: IUserMealInput): Promise<MealModel | null>
   abstract list(user_id: string): Promise<MealModel[] | null>
-  abstract metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput): any
+  abstract metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput): Promise<IReplyMetrics | null>
 }

@@ -9,9 +9,7 @@ interface ICreateMealInput {
 }
 
 export class ListAllMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {
-    this.mealsRespository = mealsRespository;
-  }
+  constructor(private mealsRespository: MealsRepository) {  }
 
   async exceute(user_id: string) {
     const meals = await this.mealsRespository.list(user_id)

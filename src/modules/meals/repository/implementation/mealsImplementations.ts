@@ -7,6 +7,7 @@ export class MealsImplementations implements MealsRepository {
   async metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput) {
     const userMeals = await this.items.filter(item => item.user_id === user_id)
     if (!userMeals) return null;
+    
     const onDietMeals = userMeals.filter(item => item.isDiet === true)
     const offDietMeals = userMeals.filter(item => item.isDiet === false)
 

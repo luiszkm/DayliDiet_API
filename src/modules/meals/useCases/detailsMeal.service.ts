@@ -5,9 +5,7 @@ interface IUserMealInput {
   user_id: string
 }
 export class DetailsMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {
-    this.mealsRespository = mealsRespository;
-  }
+  constructor(private mealsRespository: MealsRepository) {  }
 
   async exceute( {id, user_id} :IUserMealInput) {
    const idValid = await this.mealsRespository.findById(id)   

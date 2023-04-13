@@ -1,4 +1,5 @@
 import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
+import { MealModel } from "../model/mealModel";
 import { MealsRepository } from "../repository/mealsRepository";
 
 interface IUserProps {
@@ -6,21 +7,10 @@ interface IUserProps {
   lastSequencilyDaysSuccess: Date
 }
 
-interface IMetricas {
-  userMeals: number
-  onDietMeals: number
-  offDietMeals: number
-  sequencilyDay: number
-}
-
-
-
 export class MetricsMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {
-    this.mealsRespository = mealsRespository;
-  }
+  constructor(private mealsRespository: MealsRepository) {}
   async exceute({ user_id, lastSequencilyDaysSuccess }: IUserProps) {
-    const metrics: IMetricas = await this.mealsRespository.metrics({ user_id, lastSequencilyDaysSuccess })
+    const metrics  = await this.mealsRespository.metrics({ user_id, lastSequencilyDaysSuccess })
     if (!metrics) throw new InvalidMealsCredentialsErro()
 
     return { metrics }

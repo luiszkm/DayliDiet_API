@@ -11,9 +11,7 @@ interface ICreateMealInput {
 }
 
 export class UpdateMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {
-    this.mealsRespository = mealsRespository;
-  }
+  constructor(private mealsRespository: MealsRepository) {}
 
   async exceute({ name, description, id, isDiet, user_id }: ICreateMealInput) {
     const idValid = await this.mealsRespository.findById(id)
