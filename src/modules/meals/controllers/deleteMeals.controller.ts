@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
 import { UnauthorizationErro } from "../errors/unauthorization-error"
 import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error"
-import { makeDeleteMealsService } from "../factories/make-makeDeleteMeals.service"
+import { makeDeleteMealsService } from "../factories/make-DeleteMeals.service"
 
 export async function DeleteMealsContrtoller(request: FastifyRequest, reply: FastifyReply) {
 

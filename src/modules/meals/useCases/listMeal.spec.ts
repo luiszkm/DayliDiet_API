@@ -1,15 +1,15 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { MealsImplementations } from "../repository/implementation/mealsImplementations";
-import { ListMealsUseCase } from "./listMeal.service";
+import { ListAllMealsUseCase } from "./listMeal.service";
 import { UserMock } from "../mocks/User";
 
 let mealsRepository: MealsImplementations
-let sut: ListMealsUseCase
+let sut: ListAllMealsUseCase
 
 describe('List Meals UseCase', () => {
   beforeEach(() => {
     mealsRepository = new MealsImplementations()
-    sut = new ListMealsUseCase(mealsRepository)
+    sut = new ListAllMealsUseCase(mealsRepository)
   })
   it('should be able not list user meals', async () => {
     const user = new UserMock()// user with meals

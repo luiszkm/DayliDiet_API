@@ -8,7 +8,7 @@ interface ICreateMealInput {
   id: string;
 }
 
-export class ListMealsUseCase {
+export class ListAllMealsUseCase {
   constructor(private mealsRespository: MealsRepository) {
     this.mealsRespository = mealsRespository;
   }

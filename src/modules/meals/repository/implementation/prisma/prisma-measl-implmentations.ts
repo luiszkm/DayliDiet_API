@@ -29,7 +29,7 @@ export class PrismaMealsImplementations implements MealsRepository {
       where: {
         id
       },
-      data:{
+      data: {
         description,
         isDiet,
         name,
@@ -39,7 +39,7 @@ export class PrismaMealsImplementations implements MealsRepository {
     if (!meals) return null
     return meals
   }
-  async delete({ id, user_id }: IUserMealInput): Promise<MealModel[] | null | MealModel > {
+  async delete({ id, user_id }: IUserMealInput): Promise<MealModel[] | null | MealModel> {
     const meals = await prisma.meals.delete({
       where: {
         id,
@@ -48,10 +48,22 @@ export class PrismaMealsImplementations implements MealsRepository {
     if (!meals) return null
     return meals
   }
-  async details({ id, user_id }: IUserMealInput): Promise<MealModel | null> {
-    throw new Error("Method not implemented.");
+  async details({ id }: IUserMealInput): Promise<MealModel | null> {
+    const meals = await prisma.meals.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!meals) return null
+    return meals
   }
   async list(user_id: string): Promise<MealModel[] | null> {
-    throw new Error("Method not implemented.");
+    const meals = await prisma.meals.findMany({
+      where: {
+        user_id
+      }
+    })
+    if (!meals) return null
+    return meals
   }
 }
