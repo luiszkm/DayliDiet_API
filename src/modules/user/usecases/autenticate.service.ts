@@ -7,7 +7,6 @@ interface IAuthenticateRequest{
   password: string;
 }
 
-
 export class AuthenticateUseCase {
   constructor(
     private usersRepository: UserRepository
@@ -21,5 +20,4 @@ export class AuthenticateUseCase {
       user
     }
   }
-
 }

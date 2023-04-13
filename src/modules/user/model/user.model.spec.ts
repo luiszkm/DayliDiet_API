@@ -13,7 +13,7 @@ describe('User model tests', () => {
       sequencilyDaysSuccess : 0,
       created_at: new Date(),
     })
-    expect(user.props).toEqual(
+    expect(user).toEqual(
       expect.objectContaining({
         id: '123',
         name: 'John',

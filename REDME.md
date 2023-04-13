@@ -4,7 +4,7 @@
      - [X] unico email por usuário
      - [X] senha criptografada
      - [x] id unico por usuário
-- [] Deve ser possível identificar o usuário entre as requisições
+- [x] Deve ser possível identificar o usuário entre as requisições
       - [x] AUTENTICAR
       - [] refresh token
       - [] cookies

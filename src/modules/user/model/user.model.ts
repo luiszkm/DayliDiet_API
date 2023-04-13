@@ -18,18 +18,21 @@ export class UserModel implements IUserModel {
   lastSequencilyDaysSuccess?: Date  | null
   created_at?: Date | null
   constructor({
+     id,
      email,
      name,
      password,
      lastSequencilyDaysSuccess,
-     sequencilyDaysSuccess
+     sequencilyDaysSuccess,
+     created_at
     }: IUserModel ) {
+      this.id = id
     this.name = name
     this.email = email
     this.password = password
     this.lastSequencilyDaysSuccess = lastSequencilyDaysSuccess
     this.sequencilyDaysSuccess = sequencilyDaysSuccess
-    
+    this.created_at = created_at
     if (!this.id) {
       this.id = randomUUID()
     }

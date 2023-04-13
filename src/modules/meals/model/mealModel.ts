@@ -23,14 +23,14 @@ export class MealModel implements IMeal {
     isDiet,
     name,
     user_id,
-    created_at,
-    id,
-    updated_at
+    id
+  
   }: IMeal) {
     this.name = name
     this.description = description
     this.user_id = user_id
     this.isDiet = isDiet
+    this.id = id
     if (!this.id) {
       this.id = randomUUID()
     }

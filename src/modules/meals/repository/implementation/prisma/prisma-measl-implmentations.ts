@@ -28,7 +28,8 @@ export class PrismaMealsImplementations implements MealsRepository {
     const meals = await prisma.meals.update({
       where: {
         id
-      },data:{
+      },
+      data:{
         description,
         isDiet,
         name,
@@ -42,7 +43,6 @@ export class PrismaMealsImplementations implements MealsRepository {
     const meals = await prisma.meals.delete({
       where: {
         id,
-        user_id
       }
     })
     if (!meals) return null

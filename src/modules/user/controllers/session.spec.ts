@@ -46,4 +46,22 @@ describe('Session Controller (e2e)', () => {
       })
     expect(response.statusCode).toEqual(400)
   })
+  it('should be able to create a session with email wrong', async () => {
+
+    await request(app.server)
+      .post('/users')
+      .send({
+        name: 'session test',
+        email: 'test.session@example.com',
+        password: '123456'
+      })
+      
+    const response = await request(app.server)
+      .post('/sessions')
+      .send({
+        email: 't.session@example.com',
+        password: '123456'
+      })
+    expect(response.statusCode).toEqual(400)
+  })
 })

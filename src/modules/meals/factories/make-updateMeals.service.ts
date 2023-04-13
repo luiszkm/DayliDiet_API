@@ -1,10 +1,10 @@
 import {  PrismaMealsImplementations} from "@/modules/meals/repository/implementation/prisma/prisma-measl-implmentations"
-import { RegisterMealsUseCase } from "@/modules/meals/useCases/registerMeal.service"
+import { UpdateMealsUseCase } from "@/modules/meals/useCases/updateMeal.service"
 
 
-export function makeRegisterMealsService() {
+export function makeUpdateMealsService() {
   const usersRepository = new PrismaMealsImplementations()
-  const registerService = new RegisterMealsUseCase(usersRepository)
+  const registerService = new UpdateMealsUseCase(usersRepository)
 
   return registerService
 }

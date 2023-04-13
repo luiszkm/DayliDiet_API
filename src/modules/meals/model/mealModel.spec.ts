@@ -13,7 +13,7 @@ describe('User model tests', () => {
       isDiet: false,
       created_at: new Date()
     })
-    expect(user.props).toEqual(
+    expect(user).toEqual(
       expect.objectContaining({
         id: '123',
         user_id: '123',
@@ -31,7 +31,7 @@ describe('User model tests', () => {
       user_id: '123',
       isDiet: true
     })
-    expect(user.props).toEqual(
+    expect(user).toEqual(
       expect.objectContaining({
         id: expect.any(String),
         name: 'breakfast',
