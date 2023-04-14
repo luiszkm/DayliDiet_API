@@ -15,6 +15,8 @@ export class UpdateMealsUseCase {
 
   async exceute({ name, description, id, isDiet, user_id }: ICreateMealInput) {
     const idValid = await this.mealsRespository.findById(id)
+    
+    
     if (!idValid) throw new InvalidMealsCredentialsErro()
     
     const mealUpdated = await this.mealsRespository.update({

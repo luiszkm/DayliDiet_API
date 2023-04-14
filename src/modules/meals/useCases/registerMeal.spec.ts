@@ -21,7 +21,15 @@ describe('Register Meals UseCase', () => {
       user_id: user.id,
       isDiet: true
     })
+    await sut.exceute({
+      name: 'Meal',
+      description: 'Meal Description',
+      user_id: user.id,
+      isDiet: false
+    })
 
+    const allMeals = await mealsRepository.items
+    expect(allMeals.length).toBe(2)
     expect(meal).toEqual(
       expect.objectContaining({
         id: expect.any(String),

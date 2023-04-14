@@ -13,11 +13,12 @@ export class ListAllMealsUseCase {
 
   async exceute(user_id: string) {
     const meals = await this.mealsRespository.list(user_id)
+    
+    
     if (!meals) throw new InvalidMealsCredentialsErro()
 
     return {
       meals
-   
     }
   }
 }

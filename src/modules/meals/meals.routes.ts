@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { RegisterMealsContrtoller } from "./controllers/registerMeasl.controller";
+import { RegisterMealsContrtoller } from "./controllers/registerMeals.controller";
 import { verifyJWT } from "@/middlewares/verify-jwt";
 import { UpdateMealsContrtoller } from "./controllers/updateMeals.controller";
 import { DeleteMealsContrtoller } from "./controllers/deleteMeals.controller";

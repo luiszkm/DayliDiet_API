@@ -6,21 +6,19 @@ import request from 'supertest'
 export async function createManyUserMeals() {
   const user = await prisma.user.findFirstOrThrow()
 
+  const date = new Date().setDate(new Date().getDate() - 2)
+  
   await prisma.meals.createMany({
-    data: [
+    data:[
       {
-        name: 'meals prisma',
-        description: "description ",
+        name: 'register meals',
+        description: 'description meals',
         isDiet: true,
         user_id: user.id,
-      },
-      {
-        name: 'meals prisma',
-        description: "description ",
-        isDiet: true,
-        user_id: "11111",
-      },
+        created_at: new Date(date),
+        updated_at: new Date(date)
 
+      }
     ]
   })
 }

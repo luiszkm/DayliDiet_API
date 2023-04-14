@@ -14,7 +14,7 @@ export class MealsImplementations implements MealsRepository {
     let sequencilyDay = []
 
     userMeals.filter(item => {
-      const created_at = item.created_at
+      const created_at = item.updated_at
       if (created_at === undefined || created_at === null) return
       return created_at > lastSequencilyDaysSuccess
     }).filter(item => {
@@ -82,6 +82,7 @@ export class MealsImplementations implements MealsRepository {
         isDiet,
         created_at
       })
+      this.items.push(meal)
       return meal
     } catch (error) {
       console.error("Impossible create meals", error)

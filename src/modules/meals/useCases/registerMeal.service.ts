@@ -9,7 +9,7 @@ interface ICreateMealInput {
 }
 
 export class RegisterMealsUseCase {
-  constructor(private mealsRespository: MealsRepository) {}
+  constructor(private mealsRespository: MealsRepository) {  }
 
   async exceute({ name, description, user_id, isDiet }: ICreateMealInput) {
     const meal = await this.mealsRespository.create({

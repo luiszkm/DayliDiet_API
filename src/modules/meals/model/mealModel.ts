@@ -10,7 +10,6 @@ export interface IMeal {
   updated_at?: Date | null;
 }
 
-
 export class MealModel implements IMeal {
   id?: string | undefined;
   user_id: string;
@@ -23,14 +22,15 @@ export class MealModel implements IMeal {
     isDiet,
     name,
     user_id,
+    created_at,
     id
-  
   }: IMeal) {
     this.name = name
     this.description = description
     this.user_id = user_id
     this.isDiet = isDiet
     this.id = id
+    this.created_at = created_at
     if (!this.id) {
       this.id = randomUUID()
     }
@@ -38,8 +38,7 @@ export class MealModel implements IMeal {
       this.created_at = new Date()
     }
     if (!this.updated_at) {
-      this.updated_at = null
+      this.updated_at = this.created_at
     }
   }
-
 }

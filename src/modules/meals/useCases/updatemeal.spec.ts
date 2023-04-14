@@ -3,6 +3,7 @@ import { MealsImplementations } from "../repository/implementation/mealsImplemen
 import { UpdateMealsUseCase } from "./updateMeal.service";
 import { UserMock } from "../mocks/User";
 import { InvalidMealsCredentialsErro } from "../errors/invalid-credentials-error";
+import { randomUUID } from "crypto";
 
 
 let mealsRepository: MealsImplementations
@@ -16,11 +17,16 @@ describe('Update Meals UseCase', () => {
   it('should be able update a meal', async () => {
     const user = new UserMock()
     const meal = await mealsRepository.create({
+      id: await randomUUID(),
       name: 'Meal',
       description: 'Meal Description',
       user_id: user.id,
       isDiet: true,
     })
+    console.log(meal);
+    
+
+
     const { mealUpdated } = await sut.exceute({
       description: 'Meal Updated',
       name: 'Meal Updated ',
@@ -43,7 +49,7 @@ describe('Update Meals UseCase', () => {
   })
   it('should not be able update a meal with invalid id', async () => {
     const user = new UserMock()
-    const meal = await mealsRepository.create({
+     await mealsRepository.create({
       name: 'Meal',
       description: 'Meal Description',
       user_id: user.id,

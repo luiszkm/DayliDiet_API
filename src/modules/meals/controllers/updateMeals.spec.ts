@@ -14,7 +14,7 @@ describe('Update Measl Controller (e2e)', () => {
   it('should be able to update a user meals', async () => {
     const { token } = await createAndAuthenticateUser(app)
     const { meal } = await createUserMeals(app, token)
-    
+
 
     const response = await request(app.server)
       .put(`/meals/${meal.id}`)
@@ -25,8 +25,16 @@ describe('Update Measl Controller (e2e)', () => {
         isDiet: false,
       })
 
-      
+    const { mealUpdated } = response.body.meals
+
     expect(response.statusCode).toEqual(201)
+    expect(mealUpdated).toEqual(
+      expect.objectContaining({
+        name: 'update meals',
+        description: "description meals update",
+        isDiet: false,
+      })
+    )
   })
- 
+
 })

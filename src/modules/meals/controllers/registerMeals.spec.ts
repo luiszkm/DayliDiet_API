@@ -17,11 +17,24 @@ describe('Register Measl Controller (e2e)', () => {
       .post('/meals/create')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        name: 'register mealas',
+        name: 'register meals',
         description: "description meals",
         isDiet: true,
       }) 
+
+    const {meal} =  response.body.meals
+      
     expect(response.statusCode).toEqual(201)
+
+    expect(meal).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        user_id: expect.any(String),
+        name: 'register meals',
+        description: 'description meals',
+        isDiet: true,
+      })
+    )
   })
 
 })

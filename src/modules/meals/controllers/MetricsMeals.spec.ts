@@ -15,21 +15,36 @@ describe.only('Metrics user meals Controller (e2e)', () => {
 
   it('should be able to list metrics user ', async () => {
     const { token } = await createAndAuthenticateUser(app)
-    await createManyUserMeals()
+    await createManyUserMeals()// create 3 meals with isDiet true
+
+    // await request(app.server)
+    // .post('/meals/create')
+    // .set('Authorization', `Bearer ${token}`)
+    // .send({
+    //   name: 'register meals',
+    //   description: "description meals",
+    //   isDiet: false,
+    // })
     
+    
+    
+  
 
     const response = await request(app.server)
       .get(`/metrics`)
       .set('Authorization', `Bearer ${token}`)
       .send()
 
-    console.log(response.body.metrics);
+    const { metrics } = response.body
+    console.log(metrics);
 
     expect(response.statusCode).toEqual(201)
-    expect(response.body.metrics).toEqual(
+    expect(response.statusCode).toEqual(201)
+    expect(metrics).toEqual(
       expect.objectContaining({
         userMeals: 1,
         sequencilyDay: 0
+        
       })
     )
   })
