@@ -23,7 +23,7 @@ export async function UpdateMealsContrtoller(request: FastifyRequest, reply: Fas
     const registerService = makeUpdateMealsService()
 
    const meals =  await registerService.exceute({ description, isDiet, name, user_id, id })
-
+    
     return reply.status(201).send({meals})
   } catch (error) {
     if (error instanceof UnauthorizationErro) reply.status(401).send({ message: error.message })
