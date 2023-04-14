@@ -14,7 +14,8 @@ export async function MetricsMealsContrtoller(request: FastifyRequest, reply: Fa
   try {
     const registerService = makeMetricsMealsService()
    const {metrics} = await registerService.exceute({user_id,lastSequencilyDaysSuccess})
-
+   // console.log(new Date(lastSequencilyDaysSuccess) < new Date());
+    
     return reply.status(201).send({metrics,lastSequencilyDaysSuccess})
   } catch (error) {
     if (error instanceof UnauthorizationErro) reply.status(401).send({ message: error.message })

@@ -3,37 +3,52 @@ import { ICreateMealInput, IReplyMetrics, IUpdateMealInput, IUserMealInput, IUse
 import { prisma } from "@/lib/prisma";
 
 export class PrismaMealsImplementations implements MealsRepository {
- async metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput): Promise<IReplyMetrics | null> {
-  const userMeals = await prisma.meals.findMany({
-    where: {
-      user_id
+  async metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput): Promise<IReplyMetrics | null> {
+    const userMeals = await prisma.meals.findMany({
+      where: {
+        user_id
+      }
+    })
+    if (!userMeals) return null
+
+    async function updateLastDay(date: Date) {
+     const user = await prisma.user.update({
+        where: {
+          id: user_id
+        },
+        data: {
+          lastSequencilyDaysSuccess: date 
+        }
+      })      
     }
-  })
-  if (!userMeals) return null
 
-  const onDietMeals = userMeals.filter(item => item.isDiet === true)
-  const offDietMeals = userMeals.filter(item => item.isDiet === false)
-  let sequencilyDay = []
+    const onDietMeals = userMeals.filter(item => item.isDiet === true)
+    const offDietMeals = userMeals.filter(item => item.isDiet === false)
 
-  userMeals.filter(item => {
-    const created_at = item.created_at
-    if (created_at === undefined || created_at === null) return
-    return created_at > lastSequencilyDaysSuccess
-  }).filter(item => {
-    const sequenci = item.isDiet === true
-    sequencilyDay.push(item)
-    if (!sequenci) return sequencilyDay = []
-    return sequenci
-  })
-  
-  const metrics = {
-    userMeals: userMeals.length,
-    onDietMeals,
-    offDietMeals,
-    sequencilyDay: 0
-  }
+    let sequencilyDay = []
 
-  return metrics
+    userMeals.filter(item => {
+      const lastDay = new Date(item.updated_at)
+      if (lastDay === undefined || lastDay === null) return
+      return lastDay > new Date(lastSequencilyDaysSuccess)
+    }).filter(async (item) => {
+      const sequenci = item.isDiet === true
+      sequencilyDay.push(item)
+      if (!sequenci) {
+        updateLastDay(item.updated_at)
+        return sequencilyDay = []
+      }
+      return
+    })
+
+    const metrics = {
+      userMeals: userMeals.length,
+      onDietMeals,
+      offDietMeals,
+      sequencilyDay: sequencilyDay.length
+    }
+
+    return metrics
   }
 
   async create({ name, description, isDiet, user_id }: ICreateMealInput): Promise<MealModel | null> {

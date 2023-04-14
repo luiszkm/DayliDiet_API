@@ -14,9 +14,9 @@ export class MealsImplementations implements MealsRepository {
     let sequencilyDay = []
 
     userMeals.filter(item => {
-      const created_at = item.updated_at
-      if (created_at === undefined || created_at === null) return
-      return created_at > lastSequencilyDaysSuccess
+      const lastDate = item.updated_at
+      if (lastDate === undefined || lastDate === null) return
+      return lastDate > lastSequencilyDaysSuccess
     }).filter(item => {
       const sequenci = item.isDiet === true
       sequencilyDay.push(item)
