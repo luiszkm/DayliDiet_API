@@ -82,7 +82,6 @@ export class MealsImplementations implements MealsRepository {
         isDiet,
         created_at
       })
-      this.items.push(meal);
       return meal
     } catch (error) {
       console.error("Impossible create meals", error)

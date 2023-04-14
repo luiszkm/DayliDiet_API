@@ -10,13 +10,13 @@ import { MetricsMealsContrtoller } from "./controllers/MetricsMeals.controller";
 
 
 export async function MealsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', verifyJWT)
-  
-  app.post('/meals/create', RegisterMealsContrtoller)
-  app.put('/meals/:id', UpdateMealsContrtoller)
-  app.delete('/meals/:id', DeleteMealsContrtoller)
-  app.get('/meals/:id', DetailsMealsContrtoller)
-  app.get('/meals', ListAllMealsContrtoller)
-  app.get('/metrics', MetricsMealsContrtoller)
+    app.addHook('onRequest', verifyJWT)
 
+    app.post('/meals/create', RegisterMealsContrtoller)
+    app.put('/meals/:id', UpdateMealsContrtoller)
+    app.delete('/meals/:id', DeleteMealsContrtoller)
+    app.get('/meals/:id', DetailsMealsContrtoller)
+    app.get('/meals', ListAllMealsContrtoller)
+    app.get('/metrics', MetricsMealsContrtoller)
+  
 }

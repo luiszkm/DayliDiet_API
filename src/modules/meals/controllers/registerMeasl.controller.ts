@@ -21,7 +21,6 @@ export async function RegisterMealsContrtoller( request: FastifyRequest, reply: 
     return reply.status(201).send({meals})
   } catch (error) {
     if (error instanceof UnauthorizationErro) reply.status(401).send({ message: error.message })
-
     throw error
   }
 }

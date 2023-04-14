@@ -14,9 +14,15 @@ export async function createManyUserMeals() {
         isDiet: true,
         user_id: user.id,
       },
+      {
+        name: 'meals prisma',
+        description: "description ",
+        isDiet: true,
+        user_id: "11111",
+      },
+
     ]
   })
-
 }
 
 
