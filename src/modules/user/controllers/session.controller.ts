@@ -15,14 +15,19 @@ export async function SessionController(request: FastifyRequest, reply: FastifyR
     const registerService = makeSessionService()
 
     const { user } = await registerService.execute({ email, password })
+    
     const token = await reply.jwtSign(
-      {}, {
+      {
+        lastSequencilyDaysSuccess: user.lastSequencilyDaysSuccess,
+      }, {
       sign: {
         sub: user.id
       }
     })
     const refreshToken = await reply.jwtSign(
-      {}, {
+      {
+        lastSequencilyDaysSuccess: user.lastSequencilyDaysSuccess,
+      }, {
       sign: {
         sub: user.id,
         expiresIn: '7d',

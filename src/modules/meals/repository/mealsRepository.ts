@@ -25,7 +25,7 @@ export interface IUserMetricsInput {
   lastSequencilyDaysSuccess: Date;
 }
 
-interface IReplyMetrics {
+export interface IReplyMetrics {
   userMeals: number;
   onDietMeals: MealModel[];
   offDietMeals: MealModel[];

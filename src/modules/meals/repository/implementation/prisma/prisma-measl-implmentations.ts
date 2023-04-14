@@ -1,11 +1,41 @@
 import { MealModel, IMeal } from "@/modules/meals/model/mealModel";
-import { ICreateMealInput, IUpdateMealInput, IUserMealInput, IUserMetricsInput, MealsRepository } from "../../mealsRepository";
+import { ICreateMealInput, IReplyMetrics, IUpdateMealInput, IUserMealInput, IUserMetricsInput, MealsRepository } from "../../mealsRepository";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaMealsImplementations implements MealsRepository {
-  metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput) {
-    throw new Error("Method not implemented.");
+ async metrics({ user_id, lastSequencilyDaysSuccess }: IUserMetricsInput): Promise<IReplyMetrics | null> {
+  const userMeals = await prisma.meals.findMany({
+    where: {
+      user_id
+    }
+  })
+  if (!userMeals) return null
+
+  const onDietMeals = userMeals.filter(item => item.isDiet === true)
+  const offDietMeals = userMeals.filter(item => item.isDiet === false)
+  let sequencilyDay = []
+
+  userMeals.filter(item => {
+    const created_at = item.created_at
+    if (created_at === undefined || created_at === null) return
+    return created_at > lastSequencilyDaysSuccess
+  }).filter(item => {
+    const sequenci = item.isDiet === true
+    sequencilyDay.push(item)
+    if (!sequenci) return sequencilyDay = []
+    return sequenci
+  })
+  
+  const metrics = {
+    userMeals: userMeals.length,
+    onDietMeals,
+    offDietMeals,
+    sequencilyDay: 0
   }
+
+  return metrics
+  }
+
   async create({ name, description, isDiet, user_id }: ICreateMealInput): Promise<MealModel | null> {
     const meals = await prisma.meals.create({
       data: {

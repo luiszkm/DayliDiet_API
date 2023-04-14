@@ -7,9 +7,9 @@ export async function ListAllMealsContrtoller(request: FastifyRequest, reply: Fa
   const user_id: string = request.user.sub
   try {
     const registerService = makeListAllMealsService()
-    await registerService.exceute(user_id)
+   const meals = await registerService.exceute(user_id)
 
-    return reply.status(201).send()
+    return reply.status(201).send({meals})
   } catch (error) {
     if (error instanceof UnauthorizationErro) reply.status(401).send({ message: error.message })
     if (error instanceof InvalidMealsCredentialsErro) reply.status(403).send({ message: error.message })

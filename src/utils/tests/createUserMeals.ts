@@ -9,9 +9,9 @@ export async function createUserMeals(app: FastifyInstance, token: string) {
     .send({
       name: 'register meals',
       description: "description meals",
-      isDiet: true,
+      isDiet: false,
     })
-
+    
     const meal: MealModel = response.body.meals.meal
   return {
     meal

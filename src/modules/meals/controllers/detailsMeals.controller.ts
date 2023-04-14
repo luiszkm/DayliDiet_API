@@ -15,9 +15,9 @@ export async function DetailsMealsContrtoller(request: FastifyRequest, reply: Fa
   try {
     const registerService = makeDeleteMealsService()
 
-    await registerService.exceute({ user_id, id })
+   const meal = await registerService.exceute({ user_id, id })
 
-    return reply.status(201).send()
+    return reply.status(201).send({meal})
   } catch (error) {
     if (error instanceof UnauthorizationErro) reply.status(401).send({ message: error.message })
     if (error instanceof InvalidMealsCredentialsErro) reply.status(403).send({ message: error.message })
