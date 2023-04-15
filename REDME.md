@@ -55,7 +55,7 @@ Necessita ter Node e Docker Instalado em sua maquina
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/luiszkm/GitHubBlog.git>
+$ git clone <https://github.com/luiszkm/DayliDiet_API.git>
 
 # Instale as dependências
 $ npm install
